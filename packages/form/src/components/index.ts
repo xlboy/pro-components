@@ -2,7 +2,10 @@ export { default as ProFormCaptcha } from './Captcha';
 export type { CaptFieldRef, ProFormCaptchaProps } from './Captcha';
 export { default as ProFormCascader } from './Cascader';
 export { default as ProFormCheckbox } from './Checkbox';
-export type { ProFormCheckboxGroupProps } from './Checkbox';
+export type {
+  ProFormCheckboxGroupProps,
+  ProFormCheckboxProps,
+} from './Checkbox';
 export { default as ProFormColorPicker } from './ColorPicker';
 export type { ProFormColorPickerProps } from './ColorPicker';
 export { default as ProFormDateMonthRangePicker } from './DateMonthRangePicker';
@@ -57,6 +60,7 @@ export { default as ProFormText } from './Text';
 export { default as ProFormTextArea } from './TextArea';
 export { default as ProFormTimePicker } from './TimePicker';
 export { default as ProFormTreeSelect } from './TreeSelect';
+export type { ProFormTreeSelectProps } from './TreeSelect';
 export { default as ProFormUploadButton } from './UploadButton';
 export type { ProFormUploadButtonProps } from './UploadButton';
 export { default as ProFormUploadDragger } from './UploadDragger';

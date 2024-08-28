@@ -36,7 +36,7 @@ export default () => {
     <ProConfigProvider hashed={false}>
       <div style={{ backgroundColor: token.colorBgContainer }}>
         <LoginForm
-          logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+          logo="https://github.githubassets.com/favicons/favicon.png"
           title="Github"
           subTitle="全球最大的代码托管平台"
           actions={
@@ -79,7 +79,6 @@ export default () => {
                   prefix: <LockOutlined className={'prefixIcon'} />,
                   strengthText:
                     'Password should contain numbers, letters and special characters, at least 8 characters long.',
-
                   statusRender: (value) => {
                     const getStatus = () => {
                       if (value && value.length > 12) {

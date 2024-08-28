@@ -2,6 +2,74 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.17](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.16...@ant-design/pro-utils@2.15.17) (2024-08-05)
+
+### Performance Improvements
+
+- lodash => lodash-es ([#8606](https://github.com/ant-design/pro-components/issues/8606)) ([455b4f1](https://github.com/ant-design/pro-components/commit/455b4f1bb1edfd896c04d98c37da6f97fb2428cb))
+
+## [2.15.16](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.15...@ant-design/pro-utils@2.15.16) (2024-07-15)
+
+### Bug Fixes
+
+- **table:** fix canel editort no work error ([2b60fe5](https://github.com/ant-design/pro-components/commit/2b60fe50d6dd6616c685a85b4b8f0e04927b1940))
+- **table:** 解决 ProTable.editable.actionRender 无法获取最新 state 快照的问题（第二种改法） ([#8549](https://github.com/ant-design/pro-components/issues/8549)) ([8d9fa00](https://github.com/ant-design/pro-components/commit/8d9fa00685c3ca4b55dfccfc93e7bc63e6525a5f))
+
+## [2.15.15](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.14...@ant-design/pro-utils@2.15.15) (2024-06-21)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.14](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.13...@ant-design/pro-utils@2.15.14) (2024-06-08)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.13](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.11...@ant-design/pro-utils@2.15.13) (2024-05-20)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.12](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.11...@ant-design/pro-utils@2.15.12) (2024-04-21)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.11](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.10...@ant-design/pro-utils@2.15.11) (2024-04-21)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.10](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.8...@ant-design/pro-utils@2.15.10) (2024-04-20)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.9](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.8...@ant-design/pro-utils@2.15.9) (2024-04-19)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.8](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.7...@ant-design/pro-utils@2.15.8) (2024-04-17)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.7](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.6...@ant-design/pro-utils@2.15.7) (2024-04-17)
+
+### Bug Fixes
+
+- **form:** Fix the problem of FieldLabel activating style when the value is an array ([#8287](https://github.com/ant-design/pro-components/issues/8287)) ([f1f1c6c](https://github.com/ant-design/pro-components/commit/f1f1c6cfdec8d5e5a03ae54be3e21af6ba9fd078))
+
+## [2.15.6](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.5...@ant-design/pro-utils@2.15.6) (2024-03-27)
+
+**Note:** Version bump only for package @ant-design/pro-utils
+
+## [2.15.5](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.4...@ant-design/pro-utils@2.15.5) (2024-03-15)
+
+### Bug Fixes
+
+- **components:** compatible 5.13.0 border ([ddf0c82](https://github.com/ant-design/pro-components/commit/ddf0c82b5a9e55546c1b864e76972621b501769b))
+- **components:** remove deprecated tip props ([85de8a2](https://github.com/ant-design/pro-components/commit/85de8a2bad41a21254719ff7f1df5328e42fd0fb))
+
+## [2.15.4](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.3...@ant-design/pro-utils@2.15.4) (2024-01-15)
+
+### Bug Fixes
+
+- **form:** 修复 dateFormatter 使用 string 类型提示错误 ([#8029](https://github.com/ant-design/pro-components/issues/8029)) ([6d764ad](https://github.com/ant-design/pro-components/commit/6d764ad498405ad59f4fda71db1b0c632d8150a1))
+
 ## [2.15.3](https://github.com/ant-design/pro-components/compare/@ant-design/pro-utils@2.15.2...@ant-design/pro-utils@2.15.3) (2023-12-12)
 
 **Note:** Version bump only for package @ant-design/pro-utils

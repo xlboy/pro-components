@@ -59,6 +59,9 @@ import { objectToMap, proFieldParsingText } from './proFieldParsingText';
 import { runFunction } from './runFunction';
 import stringify from './stringify';
 import { transformKeySubmitValue } from './transformKeySubmitValue';
+
+export { compatibleBorder } from './compatible/compatibleBorder';
+
 import type {
   RowEditableConfig,
   RowEditableType,
@@ -80,13 +83,6 @@ import { useMountMergeState } from './useMountMergeState';
 
 export * from './typing';
 export {
-  DropdownFooter,
-  ErrorBoundary,
-  FieldLabel,
-  FilterDropdown,
-  InlineErrorFormItem,
-  LabelIconTip,
-  ProFormContext,
   compareVersions,
   conversionMomentValue,
   conversionMomentValue as conversionSubmitValue,
@@ -94,15 +90,21 @@ export {
   coverToNewToken,
   dateArrayFormatter,
   dateFormatterMap,
+  DropdownFooter,
   editableRowByKey,
+  ErrorBoundary,
+  FieldLabel,
+  FilterDropdown,
   genCopyable,
   getFieldPropsOrFormItemProps,
+  InlineErrorFormItem,
   isBrowser,
   isDeepEqualReact,
   isDropdownValueType,
   isImg,
   isNil,
   isUrl,
+  LabelIconTip,
   lighten,
   menuOverlayCompatible,
   merge,
@@ -117,6 +119,7 @@ export {
   pickProFormItemProps,
   pickProProps,
   proFieldParsingText,
+  ProFormContext,
   recordKeyToString,
   resetComponent,
   runFunction,

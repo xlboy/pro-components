@@ -1,6 +1,5 @@
 import type { Theme } from '@ant-design/cssinjs';
 import { useCacheToken } from '@ant-design/cssinjs';
-import { omitUndefined } from '@ant-design/pro-utils';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 
 import zh_CN from 'antd/lib/locale/zh_CN';
@@ -22,6 +21,25 @@ import 'dayjs/locale/zh-cn';
 export * from './intl';
 export * from './useStyle';
 export { DeepPartial, ProTokenType };
+
+type OmitUndefined<T> = {
+  [P in keyof T]: NonNullable<T[P]>;
+};
+
+const omitUndefined = <T extends Record<string, any>>(
+  obj: T,
+): OmitUndefined<T> => {
+  const newObj = {} as Record<string, any> as T;
+  Object.keys(obj || {}).forEach((key) => {
+    if (obj[key] !== undefined) {
+      (newObj as any)[key] = obj[key];
+    }
+  });
+  if (Object.keys(newObj as Record<string, any>).length < 1) {
+    return undefined as any;
+  }
+  return newObj as OmitUndefined<T>;
+};
 
 /**
  * 用于判断当前是否需要开启哈希（Hash）模式。
@@ -204,6 +222,7 @@ const ConfigProviderContainer: React.FC<{
   hashed?: boolean;
   dark?: boolean;
   prefixCls?: string;
+  intl?: IntlType;
 }> = (props) => {
   const {
     children,
@@ -212,6 +231,7 @@ const ConfigProviderContainer: React.FC<{
     autoClearCache = false,
     token: propsToken,
     prefixCls,
+    intl,
   } = props;
   const { locale, getPrefixCls, ...restConfig } = useContext(
     AntdConfigProvider.ConfigContext,
@@ -246,10 +266,11 @@ const ConfigProviderContainer: React.FC<{
     const localeName = locale?.locale;
     const key = findIntlKeyByAntdLocaleKey(localeName);
     // antd 的 key 存在的时候以 antd 的为主
-    const intl =
-      localeName && proProvide.intl?.locale === 'default'
+    const resolvedIntl =
+      intl ??
+      (localeName && proProvide.intl?.locale === 'default'
         ? intlMap[key! as 'zh-CN']
-        : proProvide.intl || intlMap[key! as 'zh-CN'];
+        : proProvide.intl || intlMap[key! as 'zh-CN']);
 
     return {
       ...proProvide,
@@ -260,7 +281,7 @@ const ConfigProviderContainer: React.FC<{
         themeId: tokenContext.theme.id,
         layout: proLayoutTokenMerge,
       }),
-      intl: intl || zhCNIntl,
+      intl: resolvedIntl || zhCNIntl,
     };
   }, [
     locale?.locale,
@@ -271,6 +292,7 @@ const ConfigProviderContainer: React.FC<{
     proComponentsCls,
     antCls,
     proLayoutTokenMerge,
+    intl,
   ]);
 
   const finalToken = {
@@ -303,6 +325,8 @@ const ConfigProviderContainer: React.FC<{
     //Fix issue with hashId code
     if (isNeedOpenHash() === false) {
       return '';
+    } else if (tokenContext.hashId) {
+      return tokenContext.hashId;
     } else {
       // 生产环境或其他环境
       return nativeHashId;
@@ -313,25 +337,36 @@ const ConfigProviderContainer: React.FC<{
     dayjs.locale(locale?.locale || 'zh-cn');
   }, [locale?.locale]);
 
-  const configProviderDom = useMemo(() => {
-    const themeConfig = {
+  const themeConfig = useMemo(() => {
+    return {
       ...restConfig.theme,
       hashId: hashId,
       hashed: hashed && isNeedOpenHash(),
     };
+  }, [restConfig.theme, hashId, hashed, isNeedOpenHash()]);
 
+  const proConfigContextValue = useMemo(() => {
+    return {
+      ...proProvideValue!,
+      valueTypeMap: valueTypeMap || proProvideValue?.valueTypeMap,
+      token,
+      theme: tokenContext.theme as unknown as Theme<any, any>,
+      hashed,
+      hashId,
+    };
+  }, [
+    proProvideValue,
+    valueTypeMap,
+    token,
+    tokenContext.theme,
+    hashed,
+    hashId,
+  ]);
+
+  const configProviderDom = useMemo(() => {
     return (
-      <AntdConfigProvider {...restConfig} theme={{ ...themeConfig }}>
-        <ProConfigContext.Provider
-          value={{
-            ...proProvideValue!,
-            valueTypeMap: valueTypeMap || proProvideValue?.valueTypeMap,
-            token,
-            theme: tokenContext.theme as unknown as Theme<any, any>,
-            hashed,
-            hashId,
-          }}
-        >
+      <AntdConfigProvider {...restConfig} theme={themeConfig}>
+        <ProConfigContext.Provider value={proConfigContextValue}>
           <>
             {autoClearCache && <CacheClean />}
             {children}
@@ -342,13 +377,11 @@ const ConfigProviderContainer: React.FC<{
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    restConfig,
+    themeConfig,
+    proConfigContextValue,
     autoClearCache,
     children,
-    getPrefixCls,
-    hashId,
-    locale,
-    proProvideValue,
-    token,
   ]);
 
   if (!autoClearCache) return configProviderDom;
@@ -374,6 +407,7 @@ export const ProConfigProvider: React.FC<{
   dark?: boolean;
   hashed?: boolean;
   prefixCls?: string;
+  intl?: IntlType;
 }> = (props) => {
   const { needDeps, dark, token } = props;
   const proProvide = useContext(ProConfigContext);

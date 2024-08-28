@@ -1,6 +1,7 @@
 import { FontSizeOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import ProForm, {
+  LightFilter,
   ProFormCaptcha,
   ProFormCheckbox,
   ProFormColorPicker,
@@ -426,6 +427,19 @@ describe('ProForm', () => {
     wrapper.unmount();
   });
 
+  // https://github.com/ant-design/pro-components/issues/8471
+  it('📦 support formRef nativeElement', async () => {
+    const formRef = React.createRef<any>();
+    const wrapper = render(
+      <ProForm formRef={formRef}>
+        <ProFormText name="test" />
+      </ProForm>,
+    );
+
+    expect(await wrapper.container.querySelector('form'))
+      .toBe(formRef.current?.nativeElement);
+  })
+
   it('📦 ProForm support namePath is array', async () => {
     const fn = vi.fn();
     const wrapper = render(
@@ -451,7 +465,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(fn).toBeCalledWith({
+    expect(fn).toHaveBeenCalledWith({
       name: {
         test: 'test',
       },
@@ -702,7 +716,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith('test');
+    expect(onFinish).toHaveBeenCalledWith('test');
     wrapper.unmount();
   });
 
@@ -934,7 +948,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(fn).toBeCalledWith(true);
+    expect(fn).toHaveBeenCalledWith(true);
 
     act(() => {
       wrapper.baseElement
@@ -942,7 +956,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
     wrapper.unmount();
   });
 
@@ -968,7 +982,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
 
     act(() => {
       wrapper.baseElement
@@ -976,7 +990,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(fn).toBeCalledWith(true);
+    expect(fn).toHaveBeenCalledWith(true);
     wrapper.unmount();
   });
 
@@ -1158,7 +1172,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1218,7 +1232,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1284,7 +1298,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1304,7 +1318,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(onValuesChange).toBeCalledWith('全部');
+    expect(onValuesChange).toHaveBeenCalledWith('全部');
     wrapper.unmount();
   });
 
@@ -1353,7 +1367,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1440,7 +1454,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1542,7 +1556,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1628,7 +1642,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onSearch).toBeCalledWith('全');
+    expect(onSearch).toHaveBeenCalledWith('全');
 
     act(() => {
       fireEvent.mouseDown(
@@ -1771,6 +1785,102 @@ describe('ProForm', () => {
     wrapper.unmount();
   });
 
+  it('📦 LightFilter + SearchSelect support fetchDataOnSearch: false', async () => {
+    const onRequest = vi.fn();
+    const wrapper = render(
+      <LightFilter>
+        <ProFormSelect.SearchSelect
+          name="userQuery"
+          label="查询选择器"
+          fieldProps={{
+            fetchDataOnSearch: false,
+          }}
+          request={async () => {
+            onRequest();
+            return [
+              { label: '全部', value: 'all' },
+              { label: '未解决', value: 'open' },
+              { label: '已解决', value: 'closed' },
+              { label: '解决中', value: 'processing' },
+            ];
+          }}
+        />
+      </LightFilter>,
+    );
+
+    await wrapper.findByText('查询选择器');
+
+    act(() => {
+      fireEvent.change(
+        wrapper.baseElement.querySelector(
+          '.ant-select-selection-search-input',
+        )!,
+        {
+          target: {
+            value: '全',
+          },
+        },
+      );
+    });
+
+    expect(onRequest.mock.calls.length).toBe(1);
+  });
+
+  it('📦 LightFilter + SearchSelect support fetchDataOnSearch: true', async () => {
+    const onRequest = vi.fn();
+    const wrapper = render(
+      <LightFilter>
+        <ProFormSelect.SearchSelect
+          name="userQuery"
+          label="查询选择器"
+          fieldProps={{
+            fetchDataOnSearch: true,
+          }}
+          request={async () => {
+            onRequest();
+            return [
+              { label: '全部', value: 'all' },
+              { label: '未解决', value: 'open' },
+              { label: '已解决', value: 'closed' },
+              { label: '解决中', value: 'processing' },
+            ];
+          }}
+        />
+      </LightFilter>,
+    );
+    await wrapper.findByText('查询选择器');
+
+    await waitFor(() => {
+      expect(onRequest.mock.calls.length).toBe(1);
+    });
+
+    act(() => {
+      fireEvent.change(
+        wrapper.baseElement.querySelector(
+          '.ant-select-selection-search-input',
+        )!,
+        {
+          target: {
+            value: '全',
+          },
+        },
+      );
+    });
+
+    act(() => {
+      fireEvent.mouseDown(
+        wrapper.baseElement.querySelectorAll('.ant-select-selector')[0],
+        {},
+      );
+    });
+
+    await waitFor(() => {
+      expect(onRequest.mock.calls.length).toBe(2); // 搜索触发请求
+    });
+
+    wrapper.unmount();
+  });
+
   it('📦 SearchSelect support multiple', async () => {
     const onSearch = vi.fn();
     const onFinish = vi.fn();
@@ -1844,7 +1954,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith(2);
+    expect(onFinish).toHaveBeenCalledWith(2);
     wrapper.unmount();
   });
 
@@ -1926,7 +2036,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(onValuesChange).toBeCalledWith('门店小程序');
+    expect(onValuesChange).toHaveBeenCalledWith('门店小程序');
 
     act(() => {
       fireEvent.mouseDown(
@@ -2039,7 +2149,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(onValuesChange).toBeCalledWith('门店小程序');
+    expect(onValuesChange).toHaveBeenCalledWith('门店小程序');
 
     wrapper.unmount();
   });
@@ -2188,7 +2298,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith(2);
+    expect(onFinish).toHaveBeenCalledWith(2);
     wrapper.unmount();
   });
 
@@ -2254,7 +2364,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith('open');
+    expect(onFinish).toHaveBeenCalledWith('open');
   });
 
   it('📦 ProFormSelect support filterOption', async () => {
@@ -2437,7 +2547,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith('open');
+    expect(onFinish).toHaveBeenCalledWith('open');
   });
   it('📦 Select support multiple unnamed async options', async () => {
     const wrapper = render(
@@ -2635,7 +2745,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith(2);
+    expect(onFinish).toHaveBeenCalledWith(2);
   });
 
   it('📦 Select support multiple and autoClearSearchValue: true', async () => {
@@ -2784,7 +2894,179 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith(1);
+    expect(onFinish).toHaveBeenCalledWith(1);
+  });
+
+  it('📦 Select should not overlap group names when scrolling dropdown', async () => {
+    const options = [
+      {
+        name: 'Consulting',
+        label: 'Consulting',
+        options: [
+          {
+            label: 'Consultant',
+            value: 'Consultant',
+          },
+        ],
+      },
+      {
+        name: 'HR',
+        label: 'HR',
+        options: [
+          {
+            label: 'HR1',
+            value: 'HR1',
+          },
+          {
+            label: 'HR Assistant',
+            value: 'HR Assistant',
+          },
+          {
+            label: 'HR Manager',
+            value: 'HR Manager',
+          },
+        ],
+      },
+      {
+        name: 'Product',
+        label: 'Product',
+        options: [
+          {
+            label: 'SDE',
+            value: 'SDE',
+          },
+          {
+            label: 'Senior SDE',
+            value: 'Senior SDE',
+          },
+        ],
+      },
+      {
+        name: 'Recruiting',
+        label: 'Recruiting',
+        options: [
+          {
+            label: 'Recruiter',
+            value: 'Recruiter',
+          },
+          {
+            label: 'Recruiter Assitant',
+            value: 'Recruiter Assitant',
+          },
+          {
+            label: 'Recruiter Manager',
+            value: 'Recruiter Manager',
+          },
+        ],
+      },
+      {
+        name: 'Training',
+        label: 'Training',
+        options: [
+          {
+            label: 'Trainer',
+            value: 'Trainer',
+          },
+          {
+            label: 'Trainer Manager',
+            value: 'Trainer Manager',
+          },
+          {
+            label: 'IT Specialist',
+            value: 'IT Specialist',
+          },
+        ],
+      },
+      {
+        name: 'Marketing',
+        label: 'Marketing',
+        options: [
+          {
+            label: 'Marketer',
+            value: 'Marketer',
+          },
+          {
+            label: 'Marketing Manager',
+            value: 'Marketing Manager',
+          },
+        ],
+      },
+    ];
+    const wrapper = render(
+      <ProForm>
+        <ProFormSelect
+          showSearch
+          allowClear={false}
+          name="selectGroup"
+          label="分组select"
+          mode="multiple"
+          options={options}
+        />
+      </ProForm>,
+    );
+
+    // 找到ProFormSelect组件的下拉触发器并激活它
+    const selectTrigger = await wrapper.findByRole('combobox');
+    act(() => {
+      userEvent.click(selectTrigger);
+    });
+
+    // 等待下拉菜单渲染完成
+    const dropdownMenu = await waitFor(() => wrapper.getByRole('listbox'));
+    const menu = dropdownMenu;
+    const menuHeight = dropdownMenu.scrollHeight;
+    const viewportHeight = dropdownMenu.clientHeight;
+
+    // 模拟多次来回滚动
+    for (let i = 0; i < 5; i++) {
+      // 两次来回滚动
+      // 向下滚动到底部
+      act(() => {
+        menu.scrollTop = menuHeight - viewportHeight;
+        fireEvent.scroll(menu);
+      });
+
+      // 等待滚动完成
+      await waitFor(() => {
+        expect(menu.scrollTop).toBeGreaterThanOrEqual(
+          menuHeight - viewportHeight,
+        );
+      });
+
+      // 向上滚动到顶部
+      act(() => {
+        menu.scrollTop = 0;
+        fireEvent.scroll(menu);
+      });
+
+      // 等待滚动完成
+      await waitFor(() => expect(menu.scrollTop).toBe(0));
+    }
+
+    const dropdownOptions = Array.from(
+      wrapper.baseElement.querySelectorAll('.ant-select-item-option-content'),
+    ).map((node) => node.textContent && node.textContent.trim());
+    const dropdownGroups = Array.from(
+      wrapper.baseElement.querySelectorAll(
+        'div.ant-select-item.ant-select-item-group.ant-select-item-group',
+      ),
+    ).map((node) => node.textContent && node.textContent.trim());
+    expect(dropdownOptions.length).toBe(6); // 滚动后依旧有6个item 虚拟滚动只显示6个
+    expect(dropdownGroups.length).toBe(4); // 滚动后依旧有4个组 虚拟滚动只显示4个
+    function extractLabels(
+      groups: { label: string; options: { label: string }[] }[],
+    ) {
+      return groups.flatMap((group) =>
+        group.options.map((option) => option.label),
+      );
+    }
+    expect(extractLabels(options.slice(0, 3))).toEqual(dropdownOptions);
+
+    expect(options.slice(0, 4).map((group) => group.label)).toEqual(
+      dropdownGroups,
+    );
+
+    wrapper.unmount();
   });
 
   it('📦 ColorPicker support rgba new', async () => {
@@ -2811,7 +3093,7 @@ describe('ProForm', () => {
         .querySelectorAll<HTMLElement>('.ant-color-picker-presets-color')[0]
         .click();
     });
-    expect(onFinish).toBeCalledWith('#f5222d');
+    expect(onFinish).toHaveBeenCalledWith('#f5222d');
   });
   it('📦 ColorPicker support rgba old', async () => {
     const onFinish = vi.fn();
@@ -2839,7 +3121,7 @@ describe('ProForm', () => {
         .click();
     });
 
-    expect(onFinish).toBeCalledWith('#5b8ff9');
+    expect(onFinish).toHaveBeenCalledWith('#5b8ff9');
 
     act(() => {
       fireEvent.change(
@@ -2854,7 +3136,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onFinish).toBeCalledWith('rgba(91, 143, 249, 0.02)');
+    expect(onFinish).toHaveBeenCalledWith('rgba(91, 143, 249, 0.02)');
   });
   it('📦 validateFieldsReturnFormatValue', async () => {
     const fn1 = vi.fn();
@@ -2948,7 +3230,7 @@ describe('ProForm', () => {
     await act(async () => {
       await (await wrapper.findByText('提 交')).click();
     });
-    expect(onFinish).toBeCalledWith([1, 2]);
+    expect(onFinish).toHaveBeenCalledWith([1, 2]);
 
     // 测试清空两个值
     act(() => {
@@ -2985,7 +3267,7 @@ describe('ProForm', () => {
       await (await wrapper.findByText('提 交')).click();
     });
 
-    expect(onFinish).toBeCalledWith(undefined);
+    expect(onFinish).toHaveBeenCalledWith(undefined);
   });
 
   it('📦 when dateFormatter is a Function', async () => {
@@ -3016,7 +3298,7 @@ describe('ProForm', () => {
 
     const wrapper = render(<App />);
 
-    expect(fn1).toBeCalledWith('2021/08/09 12:12:12', 'dateTime');
+    expect(fn1).toHaveBeenCalledWith('2021/08/09 12:12:12', 'dateTime');
 
     await act(async () => {
       await (await wrapper.findByText('提 交')).click();
@@ -3138,7 +3420,7 @@ describe('ProForm', () => {
       );
     });
 
-    expect(onChange).toBeCalledWith(undefined);
+    expect(onChange).toHaveBeenCalledWith(undefined);
     wrapper.unmount();
   });
 
@@ -3181,7 +3463,7 @@ describe('ProForm', () => {
       await (await html.findByText('提 交')).click();
     });
 
-    expect(fn).toBeCalledWith(22);
+    expect(fn).toHaveBeenCalledWith(22);
     expect(html.asFragment()).toMatchSnapshot();
   });
 
@@ -3214,7 +3496,7 @@ describe('ProForm', () => {
     await waitForWaitTime(300);
 
     expect(dom.value).toBe('22');
-    expect(fn).toBeCalledWith(22);
+    expect(fn).toHaveBeenCalledWith(22);
     expect(html.asFragment()).toMatchSnapshot();
   });
 

@@ -67,6 +67,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     defaultClassName: string;
     tableColumn: any[];
     toolbarDom: JSX.Element | null;
+    hideToolbar: boolean;
     searchNode: JSX.Element | null;
     alertDom: JSX.Element | null;
     isLightFilter: boolean;
@@ -89,6 +90,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     defaultSize,
     tableStyle,
     toolbarDom,
+    hideToolbar,
     searchNode,
     style,
     cardProps: propsCardProps,
@@ -334,6 +336,12 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     if (propsCardProps === false || notNeedCardDom === true || !!props.name)
       return {};
 
+    if (hideToolbar) {
+      return {
+        padding: 0,
+      };
+    }
+
     if (toolbarDom) {
       return {
         paddingBlockStart: 0,
@@ -348,7 +356,14 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     return {
       padding: 0,
     };
-  }, [notNeedCardDom, pagination, props.name, propsCardProps, toolbarDom]);
+  }, [
+    notNeedCardDom,
+    pagination,
+    props.name,
+    propsCardProps,
+    toolbarDom,
+    hideToolbar,
+  ]);
 
   /** Table 区域的 dom，为了方便 render */
   const tableAreaDom =
@@ -576,7 +591,7 @@ const ProTable = <
   });
   // ============================ END ============================
 
-  /** 默认聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
+  /** 聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
   useEffect(() => {
     // 手动模式和 request 为空都不生效
     if (
@@ -906,21 +921,25 @@ const ProTable = <
 
   const selectedRows = useMemo(
     () => selectedRowKeys?.map((key) => preserveRecordsRef.current?.get(key)),
-    [selectedRowKeys],
+    [action.dataSource, selectedRowKeys],
   ) as T[];
+
+  const hideToolbar = useMemo(
+    () =>
+      options === false &&
+      !headerTitle &&
+      !toolBarRender &&
+      !toolbar &&
+      !isLightFilter,
+    [options, headerTitle, toolBarRender, toolbar, isLightFilter],
+  );
 
   /** 内置的工具栏 */
   const toolbarDom =
     toolBarRender === false ? null : (
       <Toolbar<T>
         headerTitle={headerTitle}
-        hideToolbar={
-          options === false &&
-          !headerTitle &&
-          !toolBarRender &&
-          !toolbar &&
-          !isLightFilter
-        }
+        hideToolbar={hideToolbar}
         selectedRows={selectedRows}
         selectedRowKeys={selectedRowKeys!}
         tableColumn={tableColumn}
@@ -968,6 +987,7 @@ const ProTable = <
       action={action}
       alertDom={alertDom}
       toolbarDom={toolbarDom}
+      hideToolbar={hideToolbar}
       onSortChange={(sortConfig) => {
         if (proSort === sortConfig) return;
         setProSort(sortConfig ?? {});

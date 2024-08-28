@@ -1,7 +1,7 @@
 ﻿import { openVisibleCompatible } from '@ant-design/pro-utils';
 import type { FormProps, ModalProps } from 'antd';
 import { ConfigProvider, Modal } from 'antd';
-import merge from 'lodash.merge';
+import { merge } from 'lodash-es';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
 import { noteOnce } from 'rc-util/lib/warning';
 import React, {
@@ -16,6 +16,7 @@ import React, {
 import { createPortal } from 'react-dom';
 import type { CommonFormProps, ProFormInstance } from '../../BaseForm';
 import { BaseForm } from '../../BaseForm';
+import { SubmitterProps } from '../../components/Submitter';
 
 export type ModalFormProps<
   T = Record<string, any>,
@@ -54,7 +55,7 @@ export type ModalFormProps<
     visible?: boolean;
 
     /** @name 打开关闭的事件 */
-    onOpenChange?: (visible: boolean) => void;
+    onOpenChange?: (open: boolean) => void;
     /**
      * 不支持 'visible'，请使用全局的 visible
      *
@@ -130,12 +131,12 @@ function ModalForm<T = Record<string, any>, U = Record<string, any>>({
   );
 
   useEffect(() => {
-    if (open && (propsOpen || propVisible)) {
+    if (propsOpen || propVisible) {
       onOpenChange?.(true);
       onVisibleChange?.(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propVisible, propsOpen, open]);
+  }, [propVisible, propsOpen]);
 
   const triggerDom = useMemo(() => {
     if (!trigger) {
@@ -177,7 +178,7 @@ function ModalForm<T = Record<string, any>, U = Record<string, any>>({
             modalProps?.onCancel?.(e);
           },
         },
-      },
+      } as SubmitterProps,
       rest.submitter,
     );
   }, [
@@ -245,7 +246,9 @@ function ModalForm<T = Record<string, any>, U = Record<string, any>>({
         }}
         afterClose={() => {
           resetFields();
-          setOpen(false);
+          if (open) {
+            setOpen(false);
+          }
           modalProps?.afterClose?.();
         }}
         footer={

@@ -1,3 +1,115 @@
+## @ant-design/pro-components@2.7.15
+
+`2024-08-05`
+
+- fix(form): pass the OptionType type of ProFormSelect to the inner Select (#8568). [#8568](https://github.com/ant-design/pro-components/pull/#8568) [@dreammaker7](https://github.com/dreammaker7)
+- fix(form): correct line height in list action (#8584). [#8584](https://github.com/ant-design/pro-components/pull/#8584) [@drizzlesconsin](https://github.com/drizzlesconsin)
+- feat(form): export ProFormTreeSelectProps (#8589). [#8589](https://github.com/ant-design/pro-components/pull/#8589) [@fnoopv](https://github.com/fnoopv)
+- fix(table): don't spread key to children (#8588). [#8588](https://github.com/ant-design/pro-components/pull/#8588) [@fnoopv](https://github.com/fnoopv)
+- feat(field): add localizedFormat plugin to dayjs (#8582). [#8582](https://github.com/ant-design/pro-components/pull/#8582) [@lynette-li](https://github.com/lynette-li)
+
+## @ant-design/pro-components@2.7.12
+
+`2024-07-15`
+
+- fix(form): Digit support stringMode. [5075113](https://github.com/ant-design/pro-components/commit/5075113)
+- fix(form): fix FormList size=small, icon is default size error. [d797fa7](https://github.com/ant-design/pro-components/commit/d797fa7)
+- fix(table): fix canel editort no work error. [2b60fe5](https://github.com/ant-design/pro-components/commit/2b60fe5)
+- fix(table): 解决 ProTable.editable.actionRender 无法获取最新 state 快照的问题（第二种改法） (#8549). [#8549](https://github.com/ant-design/pro-components/pull/#8549) [@ShuangxingYang](https://github.com/ShuangxingYang)
+
+## @ant-design/pro-components@2.7.11
+
+`2024-06-21`
+
+- fix(layout): PageHeader style and breadcrumb.routes prop (#8491). [#8491](https://github.com/ant-design/pro-components/pull/#8491) [@ChuChencheng](https://github.com/ChuChencheng)
+- fix(form): formItem help render type (#8482). [#8482](https://github.com/ant-design/pro-components/pull/#8482) [@yunho1017](https://github.com/yunho1017)
+
+## @ant-design/pro-components@2.7.10
+
+`2024-06-08`
+
+- feat(form): add form item help render type (#8462). [#8462](https://github.com/ant-design/pro-components/pull/#8462) [@Yuno](https://github.com/Yuno)
+- feat(form): the second field supports negative numbers (#8449). [#8449](https://github.com/ant-design/pro-components/pull/#8449) [@Geng](https://github.com/Geng)
+- fix(form):ProFormTimePicker.RangePicker 获取时间区间，当 name 超过两层时，值为日期+时间格式. [0ce8bcd](https://github.com/ant-design/pro-components/commit/0ce8bcd)
+- fix(form): 修复 openChange 打开时不触发问题 (#8403). [#8403](https://github.com/ant-design/pro-components/pull/#8403) [@beautiful-boyyy](https://github.com/beautiful-boyyy)
+
+## @ant-design/pro-components@2.7.3
+
+`2024-04-19`
+
+- feat(card): CheckCard support children cards (#8325). [#8325](https://github.com/chenshuai2144/pro-components/pull/#8325) [@陈帅](https://github.com/陈帅)
+
+## @ant-design/pro-components@2.7.0
+
+`2024-03-27`
+
+- fix(form): DrawerForm ssr 错误 : window is not defined (#8244). [#8244](https://github.com/ant-design/pro-components/pull/#8244) [@edram](https://github.com/edram)
+- fix(table): densityLarger 中文简体和繁体国际化，文案问题修改 (#8241). [#8241](https://github.com/ant-design/pro-components/pull/#8241) [@lk0606](https://github.com/lk0606)
+- feat(card): ProCard support colStyle. [bfcf8aa](https://github.com/ant-design/pro-components/commit/bfcf8aa)
+
+## @ant-design/pro-components@2.6.52
+
+`2024-03-22`
+
+- feat(form): ProFormFieldSet support funtion. [efbdab6](https://github.com/ant-design/pro-components/commit/efbdab6)
+
+## @ant-design/pro-components@2.6.51
+
+`2024-03-20`
+
+- feat(form): ProFormFieldSet support funtion. [efbdab6](https://github.com/ant-design/pro-components/commit/efbdab6)
+
+## @ant-design/pro-components@2.6.50
+
+`2024-03-15`
+
+- fix(components): remove deprecated tip props. [85de8a2](https://github.com/ant-design/pro-components/commit/85de8a2)
+- fix(components): compatible 5.13.0 border. [ddf0c82](https://github.com/ant-design/pro-components/commit/ddf0c82)
+- fix(form): PasswordStrength support morse options. [3ab9f11](https://github.com/ant-design/pro-components/commit/3ab9f11)
+- fix(list): support add string line. [9ec366d](https://github.com/ant-design/pro-components/commit/9ec366d)
+- feat(table): add click event for icon element (#8167). [#8167](https://github.com/ant-design/pro-components/pull/#8167) [@Been101](https://github.com/Been101)
+
+## @ant-design/pro-components@2.6.49
+
+`2024-01-31`
+
+- fix(layout): fix bgLayout no work error. [4a21fdf](https://github.com/ant-design/pro-components/commit/4a21fdf)
+- fix(field): fieldProps.options not effective in ProFormSegmented (#8129). [#8129](https://github.com/ant-design/pro-components/pull/#8129) [@ChuChencheng](https://github.com/ChuChencheng)
+
+## @ant-design/pro-components@2.6.47
+
+`2024-01-18`
+
+- fix(layout): fix bgLayout no work error. [4a21fdf](https://github.com/ant-design/pro-components/commit/4a21fdf)
+- fix(form): fix DrawerForm and ModalForm button error. [7bf4b30](https://github.com/ant-design/pro-components/commit/7bf4b30)
+- fix(form): 修复默认情况下 sumbitter render 和 render 时候 dom 位置不一致的问题 (#8096). [#8096](https://github.com/ant-design/pro-components/pull/#8096) [@Shinji-Li](https://github.com/Shinji-Li)
+- feat(table): column SettingTitle 内容太长时显示省略&弹出 tooltip (#8070). [#8070](https://github.com/ant-design/pro-components/pull/#8070) [@xlboy](https://github.com/xlboy)
+
+## @ant-design/pro-components@2.6.46
+
+`2024-01-15`
+
+- fix(layout): fix bgLayout no work error. [4a21fdf](https://github.com/ant-design/pro-components/commit/4a21fdf)
+- fix(form): fix ProFormPage submit error. [2260b0d](https://github.com/ant-design/pro-components/commit/2260b0d)
+
+## @ant-design/pro-components@2.6.45
+
+`2024-01-15`
+
+- fix(layout): if bgImgStyleList is null ,no render bg-list dom. [0b26161](https://github.com/ant-design/pro-components/commit/0b26161)
+- feat(form): 添加 FormItemRender 组件 (#8012). [#8012](https://github.com/ant-design/pro-components/pull/#8012) [@hans000](https://github.com/hans000)
+- fix(form): fix ProFormDateRangePicker readonly no warp error. [b2276c3](https://github.com/ant-design/pro-components/commit/b2276c3)
+- fix(form): 修复 dateFormatter 使用 string 类型提示错误 (#8029). [#8029](https://github.com/ant-design/pro-components/pull/#8029) [@yjhtry](https://github.com/yjhtry)
+- fix(form): add playsInline props. [e1233d1](https://github.com/ant-design/pro-components/commit/e1233d1)
+- fix(form): 修复特殊情况（不使用 ProFormMoney 使用 FieldMoney）下格式化错误的问题 (#8024). [#8024](https://github.com/ant-design/pro-components/pull/#8024) [@ONLY-yours](https://github.com/ONLY-yours)
+- fix(form): 修复特殊情况下多出 moneySymbol 的问题 (#8004). [#8004](https://github.com/ant-design/pro-components/pull/#8004) [@ONLY-yours](https://github.com/ONLY-yours)
+- chore(form): adjust `submitter` dom order (#7988). [#7988](https://github.com/ant-design/pro-components/pull/#7988) [@kungege](https://github.com/kungege)
+- fix(form): remove extra `div` (#7987). [#7987](https://github.com/ant-design/pro-components/pull/#7987) [@kungege](https://github.com/kungege)
+- fix(form): no set maxHeight. [64dc9f7](https://github.com/ant-design/pro-components/commit/64dc9f7)
+- fix(list): 修复 ProFormList 透传部分属性到 FormItem 中导致的 react 警告 (#8051). [#8051](https://github.com/ant-design/pro-components/pull/#8051) [@SANmq](https://github.com/SANmq)
+- fix(table): Record Creator re-render when props change (#8018). [#8018](https://github.com/ant-design/pro-components/pull/#8018) [@bartelemi](https://github.com/bartelemi)
+- fix(table): 修复同时使用 defalutValue 和 Storage 存储的情况下，defalutValue 失效的问题 (#7979). [#7979](https://github.com/ant-design/pro-components/pull/#7979) [@ONLY-yours](https://github.com/ONLY-yours)
+
 ## @ant-design/pro-components\@2.6.44
 
 `2023-12-12`
@@ -697,7 +809,7 @@
 `2022-11-30`
 
 - fix(layout): fix collapsedshowtitle style error. [e4dc580](https://github.com/ant-design/pro-components/commit/e4dc580)
-- fix (layout): 修复 Footer <a> 标签单独使用时带有下划线问题 (#6300). [#6300](https://github.com/ant-design/pro-components/pull/#6300) [@leshalv](https://github.com/leshalv)
+- fix (layout): 修复 Footer `<a>` 标签单独使用时带有下划线问题 (#6300). [#6300](https://github.com/ant-design/pro-components/pull/#6300) [@leshalv](https://github.com/leshalv)
 - feat(layout): support stylish. [60c0b54](https://github.com/ant-design/pro-components/commit/60c0b54)
 - fix(layout): better theme gen style. [fcbc182](https://github.com/ant-design/pro-components/commit/fcbc182)
 - fix(layout): update drawer style. [eb7ace8](https://github.com/ant-design/pro-components/commit/eb7ace8)

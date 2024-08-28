@@ -2,6 +2,86 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.7](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.6...@ant-design/pro-card@2.8.7) (2024-08-05)
+
+### Bug Fixes
+
+- add unit to transition duration in procard ([#8591](https://github.com/ant-design/pro-components/issues/8591)) ([585fe39](https://github.com/ant-design/pro-components/commit/585fe39bc5bf980da3ee81549a8dafda4925611b))
+
+## [2.8.6](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.5...@ant-design/pro-card@2.8.6) (2024-07-15)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+## [2.8.5](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.4...@ant-design/pro-card@2.8.5) (2024-06-21)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+## [2.8.4](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.3...@ant-design/pro-card@2.8.4) (2024-06-08)
+
+### Bug Fixes
+
+- **ProCard:** delete cardProps when pass tabs parameter to antd Tabs ([#8460](https://github.com/ant-design/pro-components/issues/8460)) ([3b72808](https://github.com/ant-design/pro-components/commit/3b72808c8a608ba5b5bb2fb01a7e918d41d4f3b6))
+
+## [2.8.3](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.1...@ant-design/pro-card@2.8.3) (2024-05-20)
+
+### Bug Fixes
+
+- **card:** The extra element and title ellipsis in the checkcard are not functioning correctly when the title is too long ([#8347](https://github.com/ant-design/pro-components/issues/8347)) ([31e48f6](https://github.com/ant-design/pro-components/commit/31e48f6170dbc2f8c5e1ef9cbb7e07dc181905be))
+
+## [2.8.2](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.1...@ant-design/pro-card@2.8.2) (2024-04-21)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+## [2.8.1](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.8.0...@ant-design/pro-card@2.8.1) (2024-04-21)
+
+### Bug Fixes
+
+- **provide:** alway use antd token hashid ([#8338](https://github.com/ant-design/pro-components/issues/8338)) ([984953f](https://github.com/ant-design/pro-components/commit/984953fa5d9a946b08a2f0e4981f603202383e16))
+
+# [2.8.0](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.7.2...@ant-design/pro-card@2.8.0) (2024-04-20)
+
+### Features
+
+- **card:** new loading loading ([#8336](https://github.com/ant-design/pro-components/issues/8336)) ([d64f656](https://github.com/ant-design/pro-components/commit/d64f656594ec65dec7d3be505d089cb73649dd98))
+
+## [2.7.2](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.7.0...@ant-design/pro-card@2.7.2) (2024-04-20)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+## [2.7.1](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.7.0...@ant-design/pro-card@2.7.1) (2024-04-19)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+# [2.7.0](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.6.2...@ant-design/pro-card@2.7.0) (2024-04-19)
+
+### Features
+
+- **card:** CheckCard support children cards ([#8325](https://github.com/ant-design/pro-components/issues/8325)) ([96a15e8](https://github.com/ant-design/pro-components/commit/96a15e8c12fd2c10f3c6fcd341c69015392cbffd))
+
+## [2.6.2](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.6.1...@ant-design/pro-card@2.6.2) (2024-04-17)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+## [2.6.1](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.6.0...@ant-design/pro-card@2.6.1) (2024-04-17)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
+# [2.6.0](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.5.30...@ant-design/pro-card@2.6.0) (2024-03-27)
+
+### Features
+
+- **card:** ProCard support colStyle ([bfcf8aa](https://github.com/ant-design/pro-components/commit/bfcf8aa8cd3899337a0a6a085f4afedeab558b96))
+
+## [2.5.30](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.5.29...@ant-design/pro-card@2.5.30) (2024-03-15)
+
+### Bug Fixes
+
+- **components:** remove deprecated tip props ([85de8a2](https://github.com/ant-design/pro-components/commit/85de8a2bad41a21254719ff7f1df5328e42fd0fb))
+
+## [2.5.29](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.5.28...@ant-design/pro-card@2.5.29) (2024-01-15)
+
+**Note:** Version bump only for package @ant-design/pro-card
+
 ## [2.5.28](https://github.com/ant-design/pro-components/compare/@ant-design/pro-card@2.5.27...@ant-design/pro-card@2.5.28) (2023-12-12)
 
 **Note:** Version bump only for package @ant-design/pro-card

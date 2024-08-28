@@ -32,7 +32,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
     dataIndex: 'title',
     copyable: true,
     ellipsis: true,
-    tip: '标题过长会自动收缩',
+    tooltip: '标题过长会自动收缩',
     formItemProps: {
       rules: [
         {
@@ -183,7 +183,7 @@ export default () => {
             },
           }}
           form={{
-            // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
+            // 由于配置了 transform，提交的参数与定义的不同这里需要转化一下
             syncToUrl: (values, type) => {
               if (type === 'get') {
                 return {
@@ -214,11 +214,11 @@ export default () => {
                   },
                   {
                     label: '2nd item',
-                    key: '1',
+                    key: '2',
                   },
                   {
                     label: '3rd item',
-                    key: '1',
+                    key: '3',
                   },
                 ],
               }}

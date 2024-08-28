@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { FieldLabel, useStyle } from '@ant-design/pro-utils';
+import { FieldLabel, compatibleBorder, useStyle } from '@ant-design/pro-utils';
 import type { SelectProps } from 'antd';
 import { ConfigProvider, Input, Select } from 'antd';
 
@@ -12,6 +12,14 @@ export type LightSelectProps = {
   label?: string;
   placeholder?: any;
   valueMaxLength?: number;
+  /** 刷新数据 */
+  fetchData: (keyWord?: string) => void;
+  /**
+   * 当搜索关键词发生变化时是否请求远程数据
+   *
+   * @default true
+   */
+  fetchDataOnSearch?: boolean;
 } & ProFieldLightProps;
 
 /**
@@ -63,6 +71,8 @@ const LightSelect: React.ForwardRefRenderFunction<
     optionFilterProp,
     optionLabelProp = '',
     valueMaxLength = 41,
+    fetchDataOnSearch = false,
+    fetchData,
     ...restProps
   } = props;
   const { placeholder = label } = props;
@@ -109,6 +119,15 @@ const LightSelect: React.ForwardRefRenderFunction<
     return values;
   }, [labelPropsName, options, valuePropsName, optionLabelProp]);
 
+  // 修复用户在使用ProFormSelect组件时，在fieldProps中使用open属性，不生效。
+  // ProComponents文档中写到“与select相同，且fieldProps同antd组件中的props”描述方案不相符
+  const mergeOpen = useMemo(() => {
+    if (Reflect.has(restProps, 'open')) {
+      return restProps?.open;
+    }
+    return open;
+  }, [open, restProps]);
+
   const filterValue = Array.isArray(value)
     ? value.map((v) => getValueOrLabel(valueMap, v))
     : getValueOrLabel(valueMap, value);
@@ -134,12 +153,24 @@ const LightSelect: React.ForwardRefRenderFunction<
         if (isLabelClick) {
           setOpen(!open);
         } else {
-          setOpen(true);
+          // 这里注释掉
+          /**
+           * 因为这里与代码
+           *  if (mode !== 'multiple') {
+           *   setOpen(false);
+           *  }
+           * 冲突了，导致这段代码不生效
+           */
+          // setOpen(true);
         }
       }}
     >
       <Select
-        popupMatchSelectWidth={false}
+        /**
+         * popupMatchSelectWidth写死false会关闭虚拟滚动，数量量过大时，影响组件性能
+         * 将此属性注释掉，变成灵活的动态配置
+         */
+        // popupMatchSelectWidth={false}
         {...restProps}
         allowClear={allowClear}
         value={value}
@@ -153,9 +184,18 @@ const LightSelect: React.ForwardRefRenderFunction<
             setOpen(false);
           }
         }}
-        bordered={bordered}
+        {...compatibleBorder(bordered)}
         showSearch={showSearch}
-        onSearch={onSearch}
+        onSearch={
+          showSearch
+            ? (keyValue) => {
+                if (fetchDataOnSearch && fetchData) {
+                  fetchData(keyValue);
+                }
+                onSearch?.(keyValue);
+              }
+            : void 0
+        }
         style={style}
         dropdownRender={(menuNode) => {
           return (
@@ -167,11 +207,20 @@ const LightSelect: React.ForwardRefRenderFunction<
                     allowClear={!!allowClear}
                     onChange={(e) => {
                       setKeyword(e.target.value);
+                      if (fetchDataOnSearch && fetchData) {
+                        fetchData(e.target.value);
+                      }
                       onSearch?.(e.target.value);
                     }}
                     onKeyDown={(e) => {
                       // 避免按下删除键把选项也删除了
-                      e.stopPropagation();
+                      if (e.key === 'Backspace') {
+                        e.stopPropagation();
+                        return;
+                      }
+                      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                      }
                     }}
                     style={{ width: '100%' }}
                     prefix={<SearchOutlined />}
@@ -182,7 +231,7 @@ const LightSelect: React.ForwardRefRenderFunction<
             </div>
           );
         }}
-        open={open}
+        open={mergeOpen}
         onDropdownVisibleChange={(isOpen) => {
           if (!isOpen) {
             //  测试环境下直接跑

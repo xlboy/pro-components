@@ -1,4 +1,5 @@
 ﻿import {
+  isBrowser,
   omitUndefined,
   openVisibleCompatible,
   useRefFunction,
@@ -6,7 +7,7 @@
 import type { DrawerProps, FormProps } from 'antd';
 import { ConfigProvider, Drawer } from 'antd';
 import classNames from 'classnames';
-import merge from 'lodash.merge';
+import { merge } from 'lodash-es';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
 import { noteOnce } from 'rc-util/lib/warning';
 import React, {
@@ -21,6 +22,7 @@ import React, {
 import { createPortal } from 'react-dom';
 import type { CommonFormProps, ProFormInstance } from '../../BaseForm';
 import { BaseForm } from '../../BaseForm';
+import { SubmitterProps } from '../../components/Submitter';
 import { useStyle } from './style';
 
 export type CustomizeResizeType = {
@@ -111,7 +113,7 @@ function DrawerForm<T = Record<string, any>, U = Record<string, any>>({
   const resizeInfo: CustomizeResizeType = React.useMemo(() => {
     const defaultResize: CustomizeResizeType = {
       onResize: () => {},
-      maxWidth: window.innerWidth * 0.8,
+      maxWidth: isBrowser() ? window.innerWidth * 0.8 : undefined,
       minWidth: 300,
     };
     if (typeof resize === 'boolean') {
@@ -227,7 +229,7 @@ function DrawerForm<T = Record<string, any>, U = Record<string, any>>({
             drawerProps?.onClose?.(e);
           },
         },
-      },
+      } as SubmitterProps,
       rest.submitter,
     );
   }, [

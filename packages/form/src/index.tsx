@@ -19,12 +19,12 @@ export type {
   LightWrapperProps,
   ProFormInstance,
 } from './BaseForm';
-export { FieldContext } from './FieldContext';
 export * from './components';
 export type {
   FormListActionType,
   ProFormCaptchaProps,
   ProFormCheckboxGroupProps,
+  ProFormCheckboxProps,
   ProFormColorPickerProps,
   ProFormColumnsType,
   ProFormDependencyProps,
@@ -39,10 +39,12 @@ export type {
   ProFormSelectProps,
   ProFormSliderProps,
   ProFormSwitchProps,
+  ProFormTreeSelectProps,
   ProFormUploadButtonProps,
   ProFormUploadDraggerProps,
 } from './components';
 export { FormListContext } from './components/List';
+export { FieldContext } from './FieldContext';
 export * from './layouts';
 export type {
   LightFilterFooterRender,

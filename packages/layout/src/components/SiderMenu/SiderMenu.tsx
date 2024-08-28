@@ -2,7 +2,6 @@ import type { GenerateStyle } from '@ant-design/pro-provider';
 import { ProProvider } from '@ant-design/pro-provider';
 import type { AvatarProps, SiderProps } from 'antd';
 import { Avatar, Layout, Menu, Space, version } from 'antd';
-import type { ItemType } from 'antd/lib/menu/hooks/useItems';
 import classNames from 'classnames';
 import type { CSSProperties, FC, ReactNode } from 'react';
 import React, { useContext, useMemo } from 'react';
@@ -106,7 +105,9 @@ export type SiderMenuProps = {
   >;
 
   /** Layout的操作功能列表，不同的 layout 会放到不同的位置 */
-  actionsRender?: WithFalse<(props: HeaderViewProps) => React.ReactNode[]>;
+  actionsRender?: WithFalse<
+    (props: HeaderViewProps) => React.ReactNode[] | React.ReactNode
+  >;
   /**
    * @name  菜单 logo 和 title 区域的渲染
    *
@@ -279,7 +280,7 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
     [baseClassName, hashId, menuContentRender, onOpenChange, props],
   );
 
-  const linksMenuItems: ItemType[] = (links || []).map((node, index) => ({
+  const linksMenuItems: any[] = (links || []).map((node, index) => ({
     className: `${baseClassName}-link`,
     label: node,
     key: index,
@@ -320,16 +321,18 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
             hashId,
           ])}
         >
-          {actionsRender?.(props as HeaderViewProps).map((item, index) => {
-            return (
-              <div
-                key={index}
-                className={`${baseClassName}-actions-list-item ${hashId}`.trim()}
-              >
-                {item}
-              </div>
-            );
-          })}
+          {[actionsRender?.(props as HeaderViewProps)]
+            .flat(1)
+            .map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`${baseClassName}-actions-list-item ${hashId}`.trim()}
+                >
+                  {item}
+                </div>
+              );
+            })}
         </Space>
       );
     },

@@ -4,7 +4,7 @@ import { ProProvider } from '@ant-design/pro-provider';
 import { isImg, isUrl, useMountMergeState } from '@ant-design/pro-utils';
 import type { MenuProps } from 'antd';
 import { Menu, Skeleton, Tooltip } from 'antd';
-import type { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { PureSettings } from '../../defaultSettings';
@@ -77,7 +77,7 @@ export type BaseMenuProps = {
   formatMessage?: (message: MessageDescriptor) => string;
 
   /**
-   * @name 处理父级菜单的 props，可以复写菜单的点击功能，一般用于埋点
+   * @name 处理父级菜单的 props，可以覆写菜单的点击功能，一般用于埋点
    * @see 子级的菜单要使用 menuItemRender 来处理
    *
    * @example 使用 a 标签跳转到特殊的地址 subMenuItemRender={(item, defaultDom) => { return <a onClick={()=> history.push(item.path) }>{defaultDom}</a> }}
@@ -94,7 +94,7 @@ export type BaseMenuProps = {
   >;
 
   /**
-   * @name 处理菜单的 props，可以复写菜单的点击功能，一般结合 Router 框架使用
+   * @name 处理菜单的 props，可以覆写菜单的点击功能，一般结合 Router 框架使用
    * @see 非子级的菜单要使用 subMenuItemRender 来处理
    *
    * @example 使用 a 标签 menuItemRender={(item, defaultDom) => { return <a onClick={()=> history.push(item.path) }>{defaultDom}</a> }}

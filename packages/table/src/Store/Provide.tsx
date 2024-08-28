@@ -1,5 +1,5 @@
 ﻿import type { TableColumnType } from 'antd';
-import merge from 'lodash.merge';
+import { merge } from 'lodash-es';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
 import { noteOnce } from 'rc-util/lib/warning';
 import {
@@ -91,9 +91,10 @@ function useContainer(props: UseContainerProps = {} as Record<string, any>) {
           const storageValue = storage?.getItem(persistenceKey);
           if (storageValue) {
             if (props?.columnsState?.defaultValue) {
+              // 实际生产中，defaultValue往往作为系统方默认配置，则优先级不应高于用户配置的storageValue
               return merge(
-                JSON.parse(storageValue),
                 props?.columnsState?.defaultValue,
+                JSON.parse(storageValue),
               );
             }
             return JSON.parse(storageValue);
@@ -128,8 +129,8 @@ function useContainer(props: UseContainerProps = {} as Record<string, any>) {
           if (props?.columnsState?.defaultValue) {
             setColumnsMap(
               merge(
-                JSON.parse(storageValue),
                 props?.columnsState?.defaultValue,
+                JSON.parse(storageValue),
               ),
             );
           } else {

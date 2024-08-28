@@ -112,20 +112,24 @@ exports[`PageContainer > ⚡️ support more loading props 1`] = `
             class="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
           >
             <span
-              class="ant-spin-dot ant-spin-dot-spin"
+              class="ant-spin-dot-holder"
             >
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
+              <span
+                class="ant-spin-dot ant-spin-dot-spin"
+              >
+                <i
+                  class="ant-spin-dot-item"
+                />
+                <i
+                  class="ant-spin-dot-item"
+                />
+                <i
+                  class="ant-spin-dot-item"
+                />
+                <i
+                  class="ant-spin-dot-item"
+                />
+              </span>
             </span>
           </div>
         </div>
@@ -208,6 +212,9 @@ exports[`PageContainer > 🐲 FooterToolbar should know width 1`] = `
   <div
     class="ant-design-pro ant-pro-layout screen-md ant-pro-layout-top-menu ant-pro-layout-fix-siderbar ant-pro-layout-top"
   >
+    <div
+      class="ant-pro-layout-bg-list"
+    />
     <div
       class="ant-layout"
       style="min-height: 100%; flex-direction: row;"
@@ -550,6 +557,9 @@ exports[`PageContainer > 🐲 footer should know width 1`] = `
     class="ant-design-pro ant-pro-layout screen-md ant-pro-layout-top-menu ant-pro-layout-fix-siderbar ant-pro-layout-top"
   >
     <div
+      class="ant-pro-layout-bg-list"
+    />
+    <div
       class="ant-layout"
       style="min-height: 100%; flex-direction: row;"
     >
@@ -791,6 +801,9 @@ exports[`PageContainer > 🐲 pro-layout support breadcrumbProps 1`] = `
   <div
     class="ant-design-pro ant-pro-layout screen-md ant-pro-layout-fix-siderbar ant-pro-layout-side"
   >
+    <div
+      class="ant-pro-layout-bg-list"
+    />
     <div
       class="ant-layout ant-layout-has-sider"
       style="min-height: 100%; flex-direction: row;"

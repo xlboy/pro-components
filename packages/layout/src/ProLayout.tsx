@@ -161,7 +161,12 @@ export type ProLayoutProps = GlobalTypes & {
    * @example 使用 layout 的  DefaultFooter   footerRender={() => (<DefaultFooter copyright="这是一条测试文案"/>}
    */
   footerRender?: WithFalse<
-    (props: HeaderViewProps, defaultDom: React.ReactNode) => React.ReactNode
+    (
+      props: ProLayoutProps & {
+        hasSiderMenu?: boolean;
+      },
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode
   >;
 
   /**
@@ -724,9 +729,11 @@ const BaseProLayout: React.FC<ProLayoutProps> = (props) => {
 
   useDocumentTitle(pageTitleInfo, props.title || false);
 
+  const { token } = useContext(ProProvider);
+
   const bgImgStyleList = useMemo(() => {
     if (bgLayoutImgList && bgLayoutImgList.length > 0) {
-      return bgLayoutImgList.map((item, index) => {
+      return bgLayoutImgList?.map((item, index) => {
         return (
           <img
             key={index}
@@ -741,8 +748,6 @@ const BaseProLayout: React.FC<ProLayoutProps> = (props) => {
     }
     return null;
   }, [bgLayoutImgList]);
-
-  const { token } = useContext(ProProvider);
 
   return wrapSSR(
     <RouteContext.Provider
@@ -772,7 +777,7 @@ const BaseProLayout: React.FC<ProLayoutProps> = (props) => {
         <>{children}</>
       ) : (
         <div className={className}>
-          {bgImgStyleList ? (
+          {bgImgStyleList || token.layout?.bgLayout ? (
             <div
               className={classNames(`${proLayoutClassName}-bg-list`, hashId)}
             >
@@ -830,7 +835,6 @@ const BaseProLayout: React.FC<ProLayoutProps> = (props) => {
                     popupBg: token?.colorBgElevated,
                     subMenuItemBg: token?.colorBgElevated,
                     darkSubMenuItemBg: 'transparent',
-                    // @ts-expect-error
                     darkPopupBg: token?.colorBgElevated,
                   }),
                 },

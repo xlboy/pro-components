@@ -393,13 +393,10 @@ const schemaToDescriptionsItem = (
           ? ({
               ...restItem,
               key: restItem.key || restItem.label?.toString() || index,
-              label: (title ||
-                restItem.label ||
-                restItem.tooltip ||
-                restItem.tip) && (
+              label: (title || restItem.label || restItem.tooltip) && (
                 <LabelIconTip
                   label={title || restItem.label}
-                  tooltip={restItem.tooltip || restItem.tip}
+                  tooltip={restItem.tooltip}
                   ellipsis={item.ellipsis}
                 />
               ),
@@ -407,6 +404,7 @@ const schemaToDescriptionsItem = (
                 <Component>
                   <FieldRender
                     {...item}
+                    key={item?.key}
                     dataIndex={item.dataIndex || index}
                     mode={fieldMode}
                     text={contentDom}
@@ -432,13 +430,10 @@ const schemaToDescriptionsItem = (
                 {...restItem}
                 key={restItem.key || restItem.label?.toString() || index}
                 label={
-                  (title ||
-                    restItem.label ||
-                    restItem.tooltip ||
-                    restItem.tip) && (
+                  (title || restItem.label || restItem.tooltip) && (
                     <LabelIconTip
                       label={title || restItem.label}
-                      tooltip={restItem.tooltip || restItem.tip}
+                      tooltip={restItem.tooltip}
                       ellipsis={item.ellipsis}
                     />
                   )
@@ -508,6 +503,7 @@ const ProDescriptions = <
     actionRef,
     onRequestError,
     emptyText,
+    contentStyle,
     ...rest
   } = props;
 
@@ -645,6 +641,7 @@ const ProDescriptions = <
           {...rest}
           contentStyle={{
             minWidth: 0,
+            ...(contentStyle || {}),
           }}
           extra={
             rest.extra ? (

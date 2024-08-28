@@ -37,7 +37,7 @@ describe('ModalForm', () => {
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
-    expect(fn).toBeCalledWith(true);
+    expect(fn).toHaveBeenCalledWith(true);
   });
 
   it('📦 ModelForm get formRef when use request', async () => {
@@ -94,7 +94,7 @@ describe('ModalForm', () => {
       (await wrapper.findByText('新 建'))?.click();
     });
     await waitForWaitTime(200);
-    expect(fn).toBeCalledWith(true);
+    expect(fn).toHaveBeenCalledWith(true);
 
     await act(async () => {
       (await wrapper.findByText('取 消'))?.click();
@@ -102,7 +102,7 @@ describe('ModalForm', () => {
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
   });
 
   it('📦 ModalForm first no render items', async () => {
@@ -266,8 +266,8 @@ describe('ModalForm', () => {
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
-    expect(fn).toBeCalledWith(false);
-    expect(fn).toBeCalledTimes(2);
+    expect(fn).toHaveBeenCalledWith(false);
+    expect(fn).toBeCalledTimes(2); // 点击触发一次，关闭触发一次 onOpenChange
   });
 
   it('📦 modal open=true simulate onOpenChange', async () => {
@@ -283,7 +283,7 @@ describe('ModalForm', () => {
     );
 
     await waitFor(() => {
-      expect(fn).toBeCalledWith(true);
+      expect(fn).toHaveBeenCalledWith(true);
     });
   });
 
@@ -305,7 +305,7 @@ describe('ModalForm', () => {
     await act(async () => {
       (await wrapper.findByText('取 消'))?.click();
     });
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
   });
 
   it('📦 modal close button will simulate modalProps.onCancel', async () => {
@@ -334,7 +334,7 @@ describe('ModalForm', () => {
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
   });
 
   it('📦 form onFinish return true should close modal', async () => {
@@ -359,7 +359,7 @@ describe('ModalForm', () => {
       await waitForWaitTime(100);
     });
 
-    expect(fn).toBeCalledWith(false);
+    expect(fn).toHaveBeenCalledWith(false);
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
@@ -385,7 +385,7 @@ describe('ModalForm', () => {
     await waitFor(async () => {
       await waitForWaitTime(100);
     });
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledTimes(1); // 点击会触发一次onOpenChange
   });
 
   it('📦 ModalForm support submitter is false', async () => {

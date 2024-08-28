@@ -11,29 +11,37 @@ atomId: EditableProTable
 
 ### 可编辑表格
 
-<code src="./demos/basic.tsx"  background="var(--main-bg-color)" title="可编辑表格"></code>
+<code src="./demos/basic.tsx"  background="var(--main-bg-color)"></code>
+
+### 单元格编辑
+
+<code src="./demos/cell-editor-table.tsx"  background="var(--main-bg-color)" ></code>
+
+### 行编辑
+
+<code src="./demos/row-editor-table.tsx"  background="var(--main-bg-color)" ></code>
 
 ### 与 FormItem 配合
 
-<code src="./demos/form-item.tsx"  background="var(--main-bg-color)" title="与 FormItem 配合"></code>
+<code src="./demos/form-item.tsx"  background="var(--main-bg-color)" ></code>
 
 ### 与编辑表格外的内容联动
 
-<code src="./demos/form-linkage.tsx"  background="var(--main-bg-color)" title="与编辑表格外的内容联动"></code>
+<code src="./demos/form-linkage.tsx"  background="var(--main-bg-color)" ></code>
 
 ### 有子列的表格增加
 
-<code src="./demos/children.tsx"  background="var(--main-bg-color)" title="有子列的表格增加"></code>
+<code src="./demos/children.tsx"  background="var(--main-bg-color)" ></code>
 
 ### 自定义可编辑表格
 
-<code src="./demos/custom.tsx"  background="var(--main-bg-color)" title="自定义可编辑表格"></code>
+<code src="./demos/custom.tsx"  background="var(--main-bg-color)" ></code>
 
 ### 实时保存的编辑表格
 
-<code src="./demos/real-time-editing.tsx"  background="var(--main-bg-color)" title="实时保存的编辑表格"></code>
+<code src="./demos/real-time-editing.tsx"  background="var(--main-bg-color)" ></code>
 
-## API
+## EditableProTable
 
 | 属性 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -106,7 +114,7 @@ atomId: EditableProTable
   setRowData?: (rowIndex: string | number, data: Partial<T>) => void;
 ```
 
-### editable 编辑行配置
+### TableRowEditable
 
 | 属性 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -126,7 +134,7 @@ atomId: EditableProTable
 | onlyOneLineEditorAlertMessage | 只能编辑一行的的提示 | `ReactNode` | `只能同时编辑一行` |
 | onlyAddOneLineAlertMessage | 只能同时新增一行的提示 | `ReactNode` | `只能新增一行` |
 
-### recordCreatorProps 新建按钮配置
+### RecordCreatorProps
 
 为了使用，我们预设了一个新建的功能，大多数情况下已经可以满足大部分新建的需求，但是很多时候需求总是千奇百怪。我们也准备了 `recordCreatorProps` 来控制生成按钮。与 Pro 系列组件的 API 相同，`recordCreatorProps={false}`就可以关掉按钮，同时使用 `actionRef.current?.addEditRecord(row)` 来控制新建行。
 
